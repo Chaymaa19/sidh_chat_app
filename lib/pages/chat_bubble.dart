@@ -20,10 +20,7 @@ class _ChatBubbleState extends State<ChatBubble>{
     final bubbleColor = isSentByCurrentUser ? Color.fromARGB(255, 188, 173, 212) : Color.fromARGB(255, 177, 176, 176);
     final bubbleTextColor = isSentByCurrentUser ? Colors.black : Colors.black;
 
-    return Dismissible(
-      key: Key(widget.message.content),
-      direction: DismissDirection.horizontal,
-      child: Align(
+    return Align(
         alignment: bubbleAlignment,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -37,7 +34,6 @@ class _ChatBubbleState extends State<ChatBubble>{
             style: TextStyle(color: bubbleTextColor),
           ),
         ),
-      ),
     );
   }
 

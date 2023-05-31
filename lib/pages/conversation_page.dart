@@ -95,6 +95,7 @@ class _ConversationPageState extends State<ConversationPage> {
           // Update the state to append the new message
           setState(() {
             chatMessages.add(newMessage);
+            _scrollToBottom();
           });
         }
       },
@@ -148,18 +149,22 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(children: [
-          const Icon(Icons.account_circle),
-          const SizedBox(width: 10),
-          Text(widget.friendUsername),
-        ],
-      ),),
+        title: Row(
+          children: [
+            const Icon(Icons.account_circle),
+            const SizedBox(width: 10),
+            Text(widget.friendUsername),
+          ],
+        ),
+      ),
       backgroundColor: Colors.grey[300],
       body: Column(
         children: [
           Expanded(
-             child: _isLoading
-                ? Center(child: CircularProgressIndicator()) // Show a loading indicator
+            child: _isLoading
+                ? Center(
+                    child:
+                        CircularProgressIndicator()) // Show a loading indicator
                 : ListView.builder(
                     controller: _scrollController,
                     itemCount: chatMessages.length,
