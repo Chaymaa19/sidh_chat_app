@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sidh_chat_app/pages/conversation_page.dart';
+import 'package:sidh_chat_app/pages/user_detail_page.dart';
 import 'package:sidh_chat_app/utils/secure_storage.dart';
 import 'package:sidh_chat_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
@@ -112,7 +113,17 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Chat")),
+      appBar: AppBar(
+                title: const Text("Chat"),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.person),
+                    onPressed: (){
+                      Navigator.push(context, UserDetailsPage.route());
+                    }),
+                ],    
+              ),
+      backgroundColor: Colors.grey[300],
       body: ListView.builder(
         itemCount: friends.length,
         itemBuilder: (context, index) {

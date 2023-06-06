@@ -3,6 +3,7 @@ import 'package:sidh_chat_app/pages/chat_page.dart';
 import 'package:sidh_chat_app/pages/login_page.dart';
 import 'package:sidh_chat_app/pages/register_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:sidh_chat_app/pages/welcome_page.dart';
 import 'package:sidh_chat_app/utils/constants.dart';
 import 'package:sidh_chat_app/utils/secure_storage.dart';
 import 'dart:convert';
@@ -31,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
     var token = await _secureStorage.getAccessToken();
     if (token == null) {
       Navigator.of(context)
-          .pushAndRemoveUntil(RegisterPage.route(), (route) => false);
+          .pushAndRemoveUntil(WelcomePage.route(), (route) => false);
     } else {
       final response = await http.get(
         Uri.parse(apiHost),
@@ -44,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
       } else {
         // If token is invalid redirect to Login
         Navigator.of(context)
-            .pushAndRemoveUntil(LoginPage.route(), (route) => false);
+            .pushAndRemoveUntil(WelcomePage.route(), (route) => false);
       }
     }
   }
