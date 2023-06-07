@@ -46,10 +46,10 @@ class _ChatPageState extends State<ChatPage> {
             friendsList.map((friend) => friend['username'] as String).toList();
       });
     } else {
-      context.showErrorSnackBar(
-          message: 'Failed to load friends. Error: ${response.statusCode}');
+        context.showErrorSnackBar(
+            message: 'Failed to load friends. Error: ${response.statusCode}');
+      }
     }
-  }
 
   Future<void> _showAddFriendDialog() async {
     return showDialog(
@@ -114,15 +114,15 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-                title: const Text("Chat"),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.person),
-                    onPressed: (){
-                      Navigator.push(context, UserDetailsPage.route());
-                    }),
-                ],    
-              ),
+        title: const Text("Chat"),
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.person),
+              onPressed: () {
+                Navigator.push(context, UserDetailsPage.route());
+              }),
+        ],
+      ),
       backgroundColor: Colors.grey[300],
       body: ListView.builder(
         itemCount: friends.length,
@@ -130,18 +130,20 @@ class _ChatPageState extends State<ChatPage> {
           String friendUsername = friends[index];
 
           return Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.0),
-          child: ListTile(
-              leading: Container(
-              height: 60,
-              child: const Icon(Icons.account_circle, size: 50),
-            ),
-              title: Text(friendUsername, style: TextStyle(fontSize: 18.0),),
-              onTap: () {
-                _navigateToChatPage(friendUsername);
-              },
-            )
-          );
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: ListTile(
+                leading: Container(
+                  height: 60,
+                  child: const Icon(Icons.account_circle, size: 50),
+                ),
+                title: Text(
+                  friendUsername,
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                onTap: () {
+                  _navigateToChatPage(friendUsername);
+                },
+              ));
         },
       ),
       floatingActionButton: FloatingActionButton(

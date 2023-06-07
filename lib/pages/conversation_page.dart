@@ -40,7 +40,8 @@ class _ConversationPageState extends State<ConversationPage> {
       headers: {'Authorization': 'Bearer $token'},
     );
     if (response.statusCode == 200) {
-      final jsonList = json.decode(response.body) as List;
+      final List<dynamic> jsonList =
+          json.decode(utf8.decode(response.bodyBytes)) as List;
       final messages = jsonList
           .map((json) => Message(
                 id: json['id'],
@@ -49,10 +50,12 @@ class _ConversationPageState extends State<ConversationPage> {
                 content: json['content'],
               ))
           .toList();
+      
       setState(() {
         chatMessages = messages;
         _isLoading = false;
       });
+    
       _scrollToBottom();
     } else {
       setState(() {
@@ -93,17 +96,17 @@ class _ConversationPageState extends State<ConversationPage> {
           );
 
           // Update the state to append the new message
-          setState(() {
-            chatMessages.add(newMessage);
-            _scrollToBottom();
-          });
+            setState(() {
+              chatMessages.add(newMessage);
+              _scrollToBottom();
+            });
         }
       },
       onError: (error) {
         // Handle WebSocket errors
         print('WebSocket Error: $error');
         // Attempt to reconnect after a delay
-        Future.delayed(Duration(seconds: 5), _connectWebsocket);
+        Future.delayed(const Duration(seconds: 1), _connectWebsocket);
       },
       onDone: () {
         // Handle WebSocket disconnection

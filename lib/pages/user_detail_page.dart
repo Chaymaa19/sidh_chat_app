@@ -33,9 +33,10 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       Uri.parse(apiHost),
       headers: {'Authorization': 'Bearer $token'},
     );
+      
     setState(() {
-      user = json.decode(response.body);
-      _isLoading = false;
+        user = json.decode(response.body);
+        _isLoading = false;
     });
   }
 
@@ -44,63 +45,67 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(title: const Text("Account Details")),
-      body: _isLoading? const Center(child: CircularProgressIndicator()) : Center(
-        child: Column(children: [
-          const SizedBox(
-            height: 20,
-          ),
-          const Icon(
-            Icons.account_circle,
-            size: 150,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            "Username",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            user!["username"],
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            "Email",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            user!["email"],
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Center(
+              child: Column(children: [
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+                const Icon(
+                  Icons.account_circle,
+                  size: 150,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Username",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  user!["username"],
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Email",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  user!["email"],
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    padding:
+                        MaterialStateProperty.all(const EdgeInsets.all(15)),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context, WelcomePage.route());
+                  },
+                  child: const Text('Logout',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18.0)),
+                ),
+              ]),
             ),
-            onPressed: () {
-              Navigator.push(context, WelcomePage.route());
-            },
-            child: const Text('Logout',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-          ),
-        ]),
-      ),
     );
   }
 }

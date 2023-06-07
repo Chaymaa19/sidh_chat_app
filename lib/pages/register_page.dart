@@ -57,12 +57,14 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.of(context).push(LoginPage.route());
     } else {
       var error = json.decode(response.body);
-      context.showErrorSnackBar(message: "Error trying to sign up: " + error["detail"]);
+      context.showErrorSnackBar(
+          message: "Error trying to sign up: " + error["detail"]);
     }
+
     setState(() {
         _isLoading = false;
     });
-  }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +84,12 @@ class _RegisterPageState extends State<RegisterPage> {
           child: ListView(
             padding: formPadding,
             children: [
-      
               SvgPicture.asset(
                 'assets/signup.svg',
                 width: double.infinity,
                 height: 250,
               ),
-      
               formSpacer,
-      
               TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
@@ -123,7 +122,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (value == null || value.isEmpty) {
                     return 'Required';
                   }
-                  final isValid = RegExp(r'^[A-Za-z0-9_]{3,24}$').hasMatch(value);
+                  final isValid =
+                      RegExp(r'^[A-Za-z0-9_]{3,24}$').hasMatch(value);
                   if (!isValid) {
                     return '''Password needs to have length between 3-24 and 
                     be formed by letters, numbers and underscores.''';
@@ -132,18 +132,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
               ),
               formSpacer,
-             
               ElevatedButton(
-                  onPressed: _isLoading ? null : _signUp,
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+                onPressed: _isLoading ? null : _signUp,
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                  child: _isLoading
+                  padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+                ),
+                child: _isLoading
                     ? const CircularProgressIndicator() // Show loading indicator
                     : const Text(
                         'Register',
@@ -153,14 +152,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
               ),
-              
               formSpacer,
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(LoginPage.route());
                 },
-                child: const Text('I already have an account',
-                                  style: TextStyle(fontSize: 16.0),),
+                child: const Text(
+                  'I already have an account',
+                  style: TextStyle(fontSize: 16.0),
+                ),
               )
             ],
           ),
